@@ -1,0 +1,8 @@
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.filtros { display:flex; align-items:center; gap:8px; }
+select, button { padding:6px 10px; border-radius:6px; border:1px solid #2a2f36; background:#0f1317; color:#e8eef5; }
+button { border:none; background:#00c853; color:#0b1116; cursor:pointer; }
+button.danger { background:#ff5252; }
+.tabla { width:100%; border-collapse: collapse; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+.acciones { display:flex; gap:8px; }

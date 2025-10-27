@@ -1,0 +1,6 @@
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+button { padding:6px 10px; border:none; border-radius:6px; background:#00c853; color:#0b1116; cursor:pointer; }
+button.danger { background:#ff5252; }
+.tabla { width:100%; border-collapse: collapse; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+.acciones { display:flex; gap:8px; }

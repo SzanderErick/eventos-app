@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <h1>Salones</h1>
+  <button (click)="nuevo()">Nuevo salón</button>
+</div>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Capacidad</th>
+      <th>Ubicación</th>
+      <th>Activo</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of salones$ | async">
+      <td>{{ s.nombre }}</td>
+      <td>{{ s.capacidad }}</td>
+      <td>{{ s.ubicacion }}</td>
+      <td>{{ s.activo ? 'Sí' : 'No' }}</td>
+      <td class="acciones">
+        <button (click)="editar(s.id!)">Editar</button>
+        <button class="danger" (click)="borrar(s.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

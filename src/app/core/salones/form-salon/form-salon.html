@@ -1,0 +1,25 @@
+<div class="card">
+  <h2>{{ id ? 'Editar salón' : 'Nuevo salón' }}</h2>
+
+  <label>Nombre</label>
+  <input type="text" [(ngModel)]="model.nombre" />
+
+  <label>Capacidad</label>
+  <input type="number" [(ngModel)]="model.capacidad" min="1" />
+
+  <label>Ubicación</label>
+  <input type="text" [(ngModel)]="model.ubicacion" />
+
+  <label>Descripción</label>
+  <textarea [(ngModel)]="model.descripcion"></textarea>
+
+  <label class="chk">
+    <input type="checkbox" [(ngModel)]="model.activo" />
+    Activo
+  </label>
+
+  <div class="acciones">
+    <button (click)="guardar()">{{ id ? 'Actualizar' : 'Guardar' }}</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

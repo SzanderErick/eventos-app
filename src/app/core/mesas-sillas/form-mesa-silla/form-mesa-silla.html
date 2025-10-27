@@ -1,0 +1,35 @@
+<div class="card">
+  <h2>{{ id ? 'Editar mesa' : 'Nueva mesa' }}</h2>
+
+  <label>Salón</label>
+  <select [(ngModel)]="model.salonId" [disabled]="!!id">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let s of salones$ | async" [value]="s.id">{{ s.nombre }}</option>
+  </select>
+
+  <label>Número de mesa</label>
+  <input type="number" [(ngModel)]="model.numero" min="1" />
+
+  <label>Número de sillas</label>
+  <input type="number" [(ngModel)]="model.sillas" min="1" />
+
+  <label>Forma</label>
+  <select [(ngModel)]="model.forma">
+    <option value="redonda">Redonda</option>
+    <option value="cuadrada">Cuadrada</option>
+    <option value="rectangular">Rectangular</option>
+  </select>
+
+  <label>Estado</label>
+  <select [(ngModel)]="model.estado">
+    <option value="disponible">Disponible</option>
+    <option value="reservada">Reservada</option>
+  </select>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="guardar()">{{ id ? 'Actualizar' : 'Guardar' }}</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

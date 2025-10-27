@@ -1,0 +1,4 @@
+<h1>Home</h1>
+<p>Bienvenido, {{ user?.username }} (rol: {{ user?.role ?? 'N/A' }})</p>
+<p><a routerLink="/salones">Ir a Salones</a></p>
+<button (click)="salir()">Salir</button>

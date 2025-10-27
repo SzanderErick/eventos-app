@@ -1,0 +1,31 @@
+<div class="toolbar">
+  <h1>Mesas y Sillas</h1>
+  <div class="filtros">
+    <label>Salón</label>
+    <select [(ngModel)]="salonId" (change)="onSalonChange()">
+      <option value="">-- seleccionar --</option>
+      <option *ngFor="let s of salones$ | async" [value]="s.id">{{ s.nombre }}</option>
+    </select>
+    <button (click)="nueva()" [disabled]="!salonId">Nueva mesa</button>
+  </div>
+</div>
+
+<table class="tabla" *ngIf="mesas$ | async as mesas">
+  <thead>
+    <tr>
+      <th>#</th><th>Sillas</th><th>Forma</th><th>Estado</th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let m of mesas">
+      <td>{{ m.numero }}</td>
+      <td>{{ m.sillas }}</td>
+      <td>{{ m.forma }}</td>
+      <td>{{ m.estado }}</td>
+      <td class="acciones">
+        <button (click)="editar(m.id!)">Editar</button>
+        <button class="danger" (click)="borrar(m.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

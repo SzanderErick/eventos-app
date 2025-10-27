@@ -1,0 +1,12 @@
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body, html { margin:0; padding:0; }
+.topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 12px 16px; background:#0f1317; color:#e8eef5; border-bottom:1px solid #222a31;
+}
+.topbar nav { display:flex; gap:12px; align-items:center; }
+.topbar a { color:#e8eef5; text-decoration:none; padding:6px 8px; border-radius:6px; }
+.topbar a:hover { background:#1a222a; }
+.topbar button { padding:6px 10px; border:none; border-radius:6px; background:#ff5252; color:#0b1116; cursor:pointer; }
+main { padding: 16px; }
