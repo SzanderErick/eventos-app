@@ -1,0 +1,35 @@
+<div class="toolbar" *ngIf="user as u">
+  <h1>Eventos</h1>
+  <button *ngIf="u.rol === 'agente'" (click)="nuevo()">Nuevo evento</button>
+</div>
+
+<table class="tabla" *ngIf="eventos$ | async as eventos">
+  <thead>
+    <tr>
+      <th>Título</th><th>Fecha</th><th>Salón</th><th>Aforo</th><th>Publicado</th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of eventos">
+      <td>{{ e.titulo }}</td>
+      <td>{{ e.fecha | date:'mediumDate' }}</td>
+      <td>
+        <ng-container *ngIf="salones$ | async as salones">
+          {{ nombreSalon(e.salonId, salones) }}
+        </ng-container>
+      </td>
+      <td>{{ e.aforoMax }}</td>
+      <td>{{ e.publicado ? 'Sí' : 'No' }}</td>
+      <td class="acciones" *ngIf="user as u">
+        <ng-container *ngIf="u.rol === 'agente'; else clienteAccion">
+          <button (click)="editar(e.id!)">Editar</button>
+          <button (click)="togglePublicar(e)">{{ e.publicado ? 'Ocultar' : 'Publicar' }}</button>
+        </ng-container>
+        <ng-template #clienteAccion>
+          <button [disabled]="!e.publicado" (click)="comprar(e.id!)">Comprar</button>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

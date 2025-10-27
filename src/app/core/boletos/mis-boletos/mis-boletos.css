@@ -1,0 +1,20 @@
+.tabla { width:100%; border-collapse: collapse; margin-top:12px; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+
+.chip { padding:2px 8px; border-radius:999px; font-size:.85rem; background:#27313a; }
+.chip.ok { background:#144d2a; color:#b8f5c2; }
+.chip.warn { background:#3a2b14; color:#ffd59b; }
+
+.btn { padding:6px 10px; border-radius:6px; border:1px solid transparent; cursor:pointer; }
+.btn.verde { background:#00c853; color:#0b1116; }
+.btn.outline { background:transparent; color:#e8eef5; border:1px solid #2a2f36; }
+
+.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter: blur(2px); }
+.modal {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:min(92vw,420px); padding:16px; border-radius:12px; background:#101418; color:#e8eef5;
+  box-shadow:0 20px 60px rgba(0,0,0,.5); display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.caption { opacity:.9; }
+.acciones { display:flex; gap:8px; }
+button.sec { background:#1a222a; color:#e8eef5; padding:6px 10px; border:none; border-radius:6px; }

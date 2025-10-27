@@ -1,0 +1,50 @@
+/* Hero */
+.hero {
+  margin: 16px 0 12px;
+  padding: 18px;
+  border-radius: 14px;
+  background: radial-gradient(1200px 400px at 10% -10%, rgba(0,200,83,.18), transparent),
+              radial-gradient(900px 300px at 90% 0%, rgba(64,196,255,.15), transparent),
+              #0f1317;
+  color: #e8eef5;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+.hero-text h1 { margin: 0 0 6px; font-size: 1.8rem; color: #ffffff; }
+.hero-text .sub { opacity: .9; margin: 0 0 12px; color: #dbe7f3; }
+.cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { padding: 8px 12px; border-radius: 10px; text-decoration: none; display: inline-block; }
+.btn.pri { background: #00c853; color: #0b1116; }
+.btn.sec { background: #1f2730; color: #e8eef5; }
+
+/* Quick grid */
+.quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 14px 0 18px; }
+.card {
+  background: #101418;
+  color: #e8eef5;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  display: flex; align-items: center; gap: 10px;
+}
+.card.link { cursor: pointer; text-decoration: none; color: #e8eef5; }
+.card .icon { font-size: 22px; width: 28px; text-align: center; color: #ffb3c1; }
+.kpi { justify-content: center; text-align: center; background:#0f151b; }
+.kpi-num { font-size: 1.8rem; font-weight: 700; color:#ffffff; }
+.kpi-label { opacity: .9; color:#cfd9e3; }
+
+/* Lists */
+.lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.list-card { background: #0f1317; border-radius: 12px; padding: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.list-card h3 { margin: 0 0 10px; color:#eaf2fb; }
+.list-card ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.list-card li { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; align-items: center; }
+.name { color:#ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.muted { color:#c2cedb; opacity: 1; }
+.price { color: #9be7ff; }
+a.mini { background: #1f2730; color: #e8eef5; padding: 4px 8px; border-radius: 8px; text-decoration: none; }
+
+/* Topbar polish */
+header.topbar { background: #0c1014; border-bottom: 1px solid #1b222a; }
+header.topbar .brand { font-weight: 700; color:#e8eef5; }
+header.topbar a { color: #e8eef5; }
+header.topbar a:hover { color: #9be7ff; }

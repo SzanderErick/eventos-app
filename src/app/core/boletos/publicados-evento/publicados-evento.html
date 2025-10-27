@@ -1,0 +1,21 @@
+<h2>Boletos disponibles</h2>
+
+<p *ngIf="sinEvento" style="margin:8px 0; opacity:.8">
+  Selecciona un evento desde la lista para ver sus boletos disponibles.
+</p>
+
+<table class="tabla" *ngIf="!sinEvento && (publicados$ | async) as pubs">
+  <thead>
+    <tr><th>Mesa</th><th>Precio</th><th></th></tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="pubs.length === 0">
+      <td colspan="3" style="opacity:.8">No hay boletos publicados para este evento.</td>
+    </tr>
+    <tr *ngFor="let p of pubs">
+      <td>{{ p.mesaId }}</td>
+      <td>{{ p.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+      <td><button class="btn verde" (click)="comprar(p)">Comprar</button></td>
+    </tr>
+  </tbody>
+</table>

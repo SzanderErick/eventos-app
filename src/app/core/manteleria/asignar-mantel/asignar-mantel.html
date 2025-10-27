@@ -1,0 +1,27 @@
+<div class="card">
+  <h2>Asignar manteles a salón</h2>
+
+  <label>Salón</label>
+  <select [(ngModel)]="salonId">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let s of salones$ | async" [value]="s.id">{{ s.nombre }}</option>
+  </select>
+
+  <label>Mantel</label>
+  <select [(ngModel)]="mantelId">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let m of manteles$ | async" [value]="m.id">
+      {{ m.nombre }} (stock: {{ m.stockTotal }})
+    </option>
+  </select>
+
+  <label>Cantidad</label>
+  <input type="number" [(ngModel)]="cantidad" min="1" />
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="guardar()">Guardar</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

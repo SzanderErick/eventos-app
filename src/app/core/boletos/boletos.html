@@ -1,0 +1,57 @@
+<div class="toolbar">
+  <h1>Boletos publicados</h1>
+  <div class="filtros">
+    <label>Evento</label>
+    <select [(ngModel)]="eventoId" (change)="cargarPublicados()">
+      <option value="">-- todos --</option>
+      <option *ngFor="let e of eventos$ | async" [value]="e.id">
+        {{ e.titulo }} ({{ e.fecha | date:'mediumDate' }})
+      </option>
+    </select>
+    <button (click)="publicar()">Publicar</button>
+  </div>
+</div>
+
+<p *ngIf="msg" class="msg">{{ msg }}</p>
+
+<table class="tabla" *ngIf="publicados$ | async as pubs">
+  <thead>
+    <tr>
+      <th>Evento</th>
+      <th>Mesa</th>
+      <th>Precio</th>
+      <th>Activo</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of pubs">
+      <td>{{ mostrarTitulo(p.eventoId) }}</td>
+      <td>{{ p.mesaId }}</td>
+      <td>{{ p.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+      <td>
+        <span class="chip" [class.ok]="p.activo" [class.warn]="!p.activo">
+          {{ p.activo ? 'Sí' : 'No' }}
+        </span>
+      </td>
+      <td class="acciones">
+        <button (click)="editarPublicado(p.id!)">Editar</button>
+        <button class="danger" (click)="eliminarPublicado(p.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal-backdrop" *ngIf="mostrarQR" (click)="cerrarQR()"></div>
+<div class="modal" *ngIf="mostrarQR">
+  <h3>QR del boleto</h3>
+  <canvas #qrCanvas width="260" height="260"></canvas>
+  <p class="caption">{{ qrEventoTitulo }} — {{ qrBoleto?.comprador }}</p>
+  <div class="acciones">
+    <button (click)="descargarPNG()">Descargar PNG</button>
+    <button (click)="marcarUsadoDesdeModal()" [disabled]="qrBoleto?.usado">
+      {{ qrBoleto?.usado ? 'Ya usado' : 'Usar boleto' }}
+    </button>
+    <button class="sec" (click)="cerrarQR()">Cerrar</button>
+  </div>
+</div>

@@ -1,4 +1,3 @@
-// src/app/service/salon.service.ts
 import { Injectable, inject } from '@angular/core';
 import {
   Firestore,

@@ -1,0 +1,28 @@
+<div class="card">
+  <h2>{{ id ? 'Editar mantel' : 'Nuevo mantel' }}</h2>
+
+  <label>Nombre</label>
+  <input type="text" [(ngModel)]="model.nombre" />
+
+  <label>Color</label>
+  <input type="text" [(ngModel)]="model.color" />
+
+  <label>Tipo</label>
+  <select [(ngModel)]="model.tipo">
+    <option value="tela">Tela</option>
+    <option value="plástico">Plástico</option>
+    <option value="papel">Papel</option>
+  </select>
+
+  <label>Stock total</label>
+  <input type="number" [(ngModel)]="model.stockTotal" min="0" />
+
+  <label class="chk">
+    <input type="checkbox" [(ngModel)]="model.activo" /> Activo
+  </label>
+
+  <div class="acciones">
+    <button (click)="guardar()">{{ id ? 'Actualizar' : 'Guardar' }}</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

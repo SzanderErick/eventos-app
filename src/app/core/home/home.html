@@ -1,4 +1,114 @@
-<h1>Home</h1>
-<p>Bienvenido, {{ user?.username }} (rol: {{ user?.role ?? 'N/A' }})</p>
-<p><a routerLink="/salones">Ir a Salones</a></p>
-<button (click)="salir()">Salir</button>
+<section class="hero">
+  <div class="hero-text">
+    <h1>Bienvenido, {{ user?.username || 'invitado' }}</h1>
+    <p class="sub">
+      {{ esAgente ? 'Administra tus eventos, publicaciones y recursos.' :
+         esCliente ? 'Explora eventos y revisa tus boletos.' :
+         'Inicia sesión para continuar.' }}
+    </p>
+    <div class="cta">
+      <a *ngIf="esAgente || esCliente" routerLink="/eventos" class="btn pri">
+        {{ esAgente ? 'Gestionar eventos' : 'Ver eventos' }}
+      </a>
+      <a *ngIf="esAgente" routerLink="/boletos" class="btn sec">Boletos publicados</a>
+      <a *ngIf="esCliente" routerLink="/mis-boletos" class="btn sec">Mis boletos</a>
+      <a *ngIf="!esAgente && !esCliente" routerLink="/login" class="btn sec">Ir a login</a>
+      <button *ngIf="esAgente || esCliente" class="btn sec" (click)="salir()">Salir</button>
+    </div>
+  </div>
+</section>
+
+<section class="quick-grid" *ngIf="esAgente; else clienteQuick">
+  <div class="card kpi" *ngIf="metricas$ | async as m">
+    <div class="kpi-num">{{ m.totalEventos }}</div>
+    <div class="kpi-label">Eventos creados</div>
+  </div>
+  <div class="card kpi" *ngIf="metricas$ | async as m2">
+    <div class="kpi-num">{{ m2.publicados }}</div>
+    <div class="kpi-label">Eventos publicados</div>
+  </div>
+
+  <a class="card link" routerLink="/boletos/publicar">
+    <div class="icon">＋</div>
+    <div>
+      <div class="title">Publicar boletos</div>
+      <div class="desc">Crea lotes con mesa y precio</div>
+    </div>
+  </a>
+
+  <a class="card link" routerLink="/manteleria">
+    <div class="icon">🧵</div>
+    <div>
+      <div class="title">Mantelería</div>
+      <div class="desc">Inventario y asignaciones</div>
+    </div>
+  </a>
+
+  <a class="card link" routerLink="/usuarios/nuevo">
+    <div class="icon">👤</div>
+    <div>
+      <div class="title">Nuevo usuario</div>
+      <div class="desc">Crear agente o cliente</div>
+    </div>
+  </a>
+</section>
+
+<ng-template #clienteQuick>
+  <section class="quick-grid" *ngIf="esCliente">
+    <a class="card link" routerLink="/eventos">
+      <div class="icon">🎟️</div>
+      <div>
+        <div class="title">Eventos disponibles</div>
+        <div class="desc">Compra boletos en un click</div>
+      </div>
+    </a>
+    <a class="card link" routerLink="/mis-boletos">
+      <div class="icon">🧾</div>
+      <div>
+        <div class="title">Mis boletos</div>
+        <div class="desc">Descarga tu QR y consulta estado</div>
+      </div>
+    </a>
+  </section>
+</ng-template>
+
+<section class="lists" *ngIf="esAgente || esCliente">
+  <div class="list-card">
+    <h3>Próximos eventos</h3>
+    <ul *ngIf="proximosEventos$ | async as evs; else noEventos">
+      <li *ngFor="let e of evs">
+        <span class="name">{{ e.titulo }}</span>
+        <span class="muted">{{ e.fecha | date:'mediumDate' }}</span>
+        <a class="mini" [routerLink]="['/boletos/disponibles']" [queryParams]="{ eventoId: e.id }" *ngIf="esCliente && e.publicado">Comprar</a>
+        <a class="mini" [routerLink]="['/eventos', e.id]" *ngIf="esAgente">Editar</a>
+      </li>
+    </ul>
+    <ng-template #noEventos><p class="muted">No hay eventos próximos.</p></ng-template>
+  </div>
+
+  <div class="list-card" *ngIf="esAgente">
+    <h3>Publicaciones recientes</h3>
+    <ul *ngIf="publicacionesRecientes$ | async as pubs; else noPubs">
+      <li *ngFor="let p of pubs">
+        <span class="name">Evento {{ mostrarTitulo(p.eventoId) }}</span>
+        <span class="muted">Mesa {{ p.mesaId }}</span>
+        <span class="price">{{ p.precio | currency:'USD':'symbol':'1.0-2' }}</span>
+        <a class="mini" [routerLink]="['/boletos/publicar']" [queryParams]="{ id: p.id }">Editar</a>
+      </li>
+    </ul>
+    <ng-template #noPubs><p class="muted">Aún no hay publicaciones.</p></ng-template>
+  </div>
+
+  <div class="list-card" *ngIf="esCliente && misUltimosBoletos$">
+    <h3>Mis últimos boletos</h3>
+    <ul *ngIf="misUltimosBoletos$ | async as bs; else noBoletos">
+      <li *ngFor="let b of bs">
+        <span class="name">Evento {{ b.eventoId }}</span>
+        <span class="muted">{{ b.usado ? 'Usado' : 'Vigente' }}</span>
+        <span class="price">{{ b.precio | currency:'USD':'symbol':'1.0-2' }}</span>
+        <a class="mini" routerLink="/mis-boletos">Ver</a>
+      </li>
+    </ul>
+    <ng-template #noBoletos><p class="muted">Aún no has comprado boletos.</p></ng-template>
+  </div>
+</section>

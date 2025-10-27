@@ -1,0 +1,32 @@
+<div class="card">
+  <h2>{{ esCliente ? 'Confirmar compra' : 'Vender boleto' }}</h2>
+
+  <label>Evento</label>
+  <select [(ngModel)]="model.eventoId">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let e of eventos$ | async" [value]="e.id">
+      {{ e.titulo }} ({{ e.fecha | date:'mediumDate' }})
+    </option>
+  </select>
+
+  <ng-container *ngIf="!esCliente">
+    <label>Comprador (nombre o email)</label>
+    <input type="text" [(ngModel)]="model.comprador" />
+
+    <label>Precio</label>
+    <input type="number" [(ngModel)]="model.precio" min="0" step="0.01" />
+  </ng-container>
+
+  <ng-container *ngIf="esCliente">
+    <p style="margin-top:12px; opacity:.8">
+      Se registrará la compra a: <strong>{{ model.comprador }}</strong>
+    </p>
+  </ng-container>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="guardar()">{{ esCliente ? 'Comprar' : 'Guardar' }}</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

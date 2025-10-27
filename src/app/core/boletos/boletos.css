@@ -1,0 +1,27 @@
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.filtros { display:flex; align-items:center; gap:8px; }
+select, button { padding:6px 10px; border-radius:6px; border:1px solid #2a2f36; background:#0f1317; color:#e8eef5; }
+button { border:none; background:#00c853; color:#0b1116; cursor:pointer; }
+button.danger { background:#ff5252; }
+.tabla { width:100%; border-collapse: collapse; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+
+.msg { margin:8px 0; color:#9be7ff; }
+
+.chip { padding:2px 8px; border-radius:999px; font-size:.85rem; background:#27313a; }
+.chip.ok { background:#144d2a; color:#b8f5c2; }
+.chip.warn { background:#3a2b14; color:#ffd59b; }
+
+.modal-backdrop {
+  position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter: blur(2px);
+}
+.modal {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  width: min(92vw, 420px);
+  padding:16px; border-radius:12px; background:#101418; color:#e8eef5;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.caption { opacity:.9; }
+.acciones { display:flex; gap:8px; }
+button.sec { background:#1a222a; color:#e8eef5; }

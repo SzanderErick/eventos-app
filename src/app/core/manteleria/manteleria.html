@@ -1,0 +1,93 @@
+<section class="inventario">
+  <div class="toolbar">
+    <h1>Mantelería (Inventario)</h1>
+    <a routerLink="/manteleria/nuevo" class="btn">Nuevo mantel</a>
+  </div>
+
+  <table class="tabla" *ngIf="manteles$ | async as manteles">
+    <thead>
+      <tr>
+        <th>Nombre</th><th>Color</th><th>Tipo</th><th>Stock</th><th>Activo</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of manteles">
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.color }}</td>
+        <td>{{ m.tipo }}</td>
+        <td>{{ m.stockTotal }}</td>
+        <td>{{ m.activo ? 'Sí' : 'No' }}</td>
+        <td class="acciones">
+          <a class="btn outline" [routerLink]="['/manteleria', m.id]">Editar</a>
+          <button class="danger" (click)="eliminarMantel(m.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="asignaciones">
+  <div class="toolbar">
+    <h2>Asignación por mesa</h2>
+  </div>
+
+  <div class="grid">
+    <div>
+      <label>Salón</label>
+      <select [(ngModel)]="salonId" (change)="onSalonChange()">
+        <option value="">-- seleccionar --</option>
+        <option *ngFor="let s of salones$ | async" [value]="s.id">{{ s.nombre }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Mesa</label>
+      <select [(ngModel)]="mesaId" (change)="onMesaChange()" [disabled]="!salonId">
+        <option value="">-- seleccionar --</option>
+        <option *ngFor="let mesa of mesas$ | async" [value]="mesa.id">
+          Mesa {{ mesa.numero }} ({{ mesa.forma }})
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label>Mantel</label>
+      <select [(ngModel)]="form.mantelId" [disabled]="!mesaId">
+        <option value="">-- seleccionar --</option>
+        <option *ngFor="let m of manteles$ | async" [value]="m.id">{{ m.nombre }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Cantidad</label>
+      <input type="number" [(ngModel)]="form.cantidad" min="1" [disabled]="!form.mantelId" />
+    </div>
+  </div>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button (click)="guardarAsignacion()" [disabled]="!salonId || !mesaId || !form.mantelId || form.cantidad < 1">
+    Asignar a mesa
+  </button>
+
+  <h3>Asignaciones</h3>
+  <table class="tabla" *ngIf="asignaciones$ | async as asigs">
+    <thead>
+      <tr><th>Mantel</th><th>Mesa</th><th>Cantidad</th><th></th></tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="(manteles$ | async) as manteles">
+        <ng-container *ngIf="mesas$ as mesas$obs">
+          <ng-container *ngIf="(mesas$obs | async) as mesas">
+            <tr *ngFor="let a of asigs">
+              <td>{{ nombreMantel(a.mantelId, manteles) }}</td>
+              <td>{{ labelMesa(a.mesaId, mesas) }}</td>
+              <td>{{ a.cantidad }}</td>
+              <td><button class="danger" (click)="eliminarAsignacion(a.id!)">Eliminar</button></td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</section>

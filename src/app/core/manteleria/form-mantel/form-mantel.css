@@ -1,0 +1,7 @@
+.card { max-width:520px; margin:24px auto; padding:16px; border-radius:12px; background:#101418; color:#e8eef5; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+label { display:block; margin:12px 0 6px; }
+input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #2a2f36; background:#0f1317; color:#e8eef5; }
+.chk { display:flex; align-items:center; gap:8px; }
+.acciones { display:flex; gap:8px; margin-top:16px; }
+button { padding:8px 12px; border:none; border-radius:8px; background:#00c853; color:#0b1116; cursor:pointer; }
+button.sec { background:#1a222a; color:#e8eef5; }

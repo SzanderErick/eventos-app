@@ -1,11 +1,41 @@
-<div class="login-card">
-  <h2>Acceso</h2>
-  <form (ngSubmit)="onSubmit()">
-    <label>Usuario</label>
-    <input type="text" [(ngModel)]="username" name="username" required />
-    <label>Contraseña</label>
-    <input type="password" [(ngModel)]="password" name="password" required />
-    <button type="submit" [disabled]="loading">{{ loading ? 'Ingresando…' : 'Entrar' }}</button>
-    <p class="error" *ngIf="error">{{ error }}</p>
-  </form>
+<div class="auth-card">
+  <h2>Iniciar sesión</h2>
+  <label>Usuario</label>
+  <input type="text" [(ngModel)]="username" />
+
+  <label>Contraseña</label>
+  <input type="password" [(ngModel)]="password" />
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="onSubmit()" [disabled]="loading">{{ loading ? 'Entrando...' : 'Entrar' }}</button>
+    <button class="sec" (click)="abrirRegistro()">Registrarse</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showRegister" (click)="cerrarRegistro()"></div>
+<div class="modal" *ngIf="showRegister">
+  <h3>Crear cuenta</h3>
+
+  <label>Usuario</label>
+  <input type="text" [(ngModel)]="reg.username" />
+
+  <label>Contraseña</label>
+  <input type="password" [(ngModel)]="reg.password" />
+
+  <label>Rol</label>
+  <select [(ngModel)]="reg.rol" [disabled]="!hayAgenteLogueado">
+    <option value="cliente">Cliente</option>
+    <option value="agente">Agente</option>
+  </select>
+  <small class="hint" *ngIf="!hayAgenteLogueado">Solo un agente logueado puede crear cuentas de agente. Se creará como cliente.</small>
+
+  <p class="ok" *ngIf="regOk">{{ regOk }}</p>
+  <p class="error" *ngIf="regError">{{ regError }}</p>
+
+  <div class="acciones">
+    <button (click)="registrar()">Crear cuenta</button>
+    <button class="sec" (click)="cerrarRegistro()">Cerrar</button>
+  </div>
 </div>

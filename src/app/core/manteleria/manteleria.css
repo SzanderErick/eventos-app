@@ -1,0 +1,11 @@
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.btn { padding:6px 10px; border-radius:6px; background:#00c853; color:#0b1116; text-decoration:none; }
+.grid { display:grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap:12px; margin-bottom:12px; }
+select, input, button { padding:6px 10px; border-radius:6px; border:1px solid #2a2f36; background:#0f1317; color:#e8eef5; }
+button { border:none; background:#00c853; color:#0b1116; cursor:pointer; }
+.btn.outline { background:transparent; color:#e8eef5; border:1px solid #2a2f36; }
+button.danger { background:#ff5252; color:#0b1116; }
+.tabla { width:100%; border-collapse: collapse; margin-top:12px; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+.error { color:#ff8a80; margin:8px 0; }
+.acciones { display:flex; gap:8px; justify-content:flex-end; }

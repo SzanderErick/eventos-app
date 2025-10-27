@@ -1,0 +1,40 @@
+<h2>Mis boletos</h2>
+
+<table class="tabla" *ngIf="boletos$ | async as boletos">
+  <thead>
+    <tr>
+      <th>Evento</th>
+      <th>Precio</th>
+      <th>Usado</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of boletos">
+      <td>{{ titulos[b.eventoId] || b.eventoId }}</td>
+      <td>{{ b.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+      <td>
+        <span class="chip" [class.ok]="b.usado" [class.warn]="!b.usado">
+          {{ b.usado ? 'Sí' : 'No' }}
+        </span>
+      </td>
+      <td>
+        <button class="btn verde" (click)="verQR(b)">Ver QR</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal-backdrop" *ngIf="mostrarQR" (click)="cerrarQR()"></div>
+<div class="modal" *ngIf="mostrarQR">
+  <h3>QR del boleto</h3>
+  <canvas #qrCanvas width="260" height="260"></canvas>
+  <p class="caption">{{ qrEventoTitulo }} — {{ qrBoleto?.comprador }}</p>
+  <div class="acciones">
+    <button class="btn verde" (click)="usarDesdeModal()" [disabled]="qrBoleto?.usado">
+      {{ qrBoleto?.usado ? 'Ya usado' : 'Usar boleto' }}
+    </button>
+    <button class="btn outline" (click)="descargarPNG()">Descargar PNG</button>
+    <button class="sec" (click)="cerrarQR()">Cerrar</button>
+  </div>
+</div>

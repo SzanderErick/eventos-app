@@ -1,0 +1,24 @@
+<div class="card">
+  <h2>Publicar boleto</h2>
+
+  <label>Evento</label>
+  <select [(ngModel)]="model.eventoId">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let e of eventos$ | async" [value]="e.id">
+      {{ e.titulo }} ({{ e.fecha | date:'mediumDate' }})
+    </option>
+  </select>
+
+  <label>Mesa</label>
+  <input type="text" [(ngModel)]="model.mesaId" placeholder="ID o nombre de mesa" />
+
+  <label>Precio</label>
+  <input type="number" [(ngModel)]="model.precio" min="0" step="0.01" />
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="publicar()">Publicar</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

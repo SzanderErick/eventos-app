@@ -1,12 +1,33 @@
 <header class="topbar">
   <div class="brand">Eventos</div>
-  <nav>
+  <nav *ngIf="user$ | async as user; else sinSesion">
     <a routerLink="/home">Home</a>
-    <a routerLink="/salones" *ngIf="user">Salones</a>
-    <a routerLink="/mesas-sillas" *ngIf="user">Mesas y Sillas</a>
-    <a routerLink="/login" *ngIf="!user">Login</a>
-    <button *ngIf="user" (click)="logout()">Salir</button>
+
+    <!-- Agente -->
+    <ng-container *ngIf="user.rol === 'agente'; else clienteMenu">
+      <a routerLink="/salones">Salones</a>
+      <a routerLink="/mesas-sillas">Mesas y Sillas</a>
+      <a routerLink="/manteleria">Mantelería</a>
+      <a routerLink="/eventos">Eventos</a>
+      <a routerLink="/boletos">Boletos</a>
+    </ng-container>
+
+    <!-- Cliente -->
+    <ng-template #clienteMenu>
+      <a routerLink="/eventos">Eventos</a>
+      <a routerLink="/mis-boletos">Mis Boletos</a>
+    </ng-template>
+
+    <span class="rol-pill">Rol: {{ user.rol }}</span>
+    <button (click)="logout()">Salir</button>
   </nav>
+
+  <ng-template #sinSesion>
+    <nav>
+      <a routerLink="/home">Home</a>
+      <a routerLink="/login">Login</a>
+    </nav>
+  </ng-template>
 </header>
 <main>
   <router-outlet></router-outlet>

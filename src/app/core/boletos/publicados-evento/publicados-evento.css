@@ -1,0 +1,4 @@
+.tabla { width:100%; border-collapse: collapse; margin-top:12px; }
+.tabla th, .tabla td { padding:8px 10px; border-bottom:1px solid #2a2f36; }
+.btn { padding:6px 10px; border-radius:6px; border:1px solid transparent; cursor:pointer; }
+.btn.verde { background:#00c853; color:#0b1116; }

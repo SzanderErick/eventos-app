@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from './service/auth.service';
+import { AuthService, UserSession } from './service/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, AsyncPipe],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
 export class AppComponent {
   private auth = inject(AuthService);
-  get user() { return this.auth.currentUser(); }
+  user$: Observable<UserSession | null> = this.auth.userChanges();
   logout() { this.auth.logout(); }
 }

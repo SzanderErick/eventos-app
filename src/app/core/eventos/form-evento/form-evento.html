@@ -1,0 +1,32 @@
+<div class="card">
+  <h2>{{ id ? 'Editar evento' : 'Nuevo evento' }}</h2>
+
+  <label>Título</label>
+  <input type="text" [(ngModel)]="model.titulo" />
+
+  <label>Fecha</label>
+  <input type="date" [(ngModel)]="model.fecha" />
+
+  <label>Salón</label>
+  <select [(ngModel)]="model.salonId">
+    <option value="">-- seleccionar --</option>
+    <option *ngFor="let s of salones$ | async" [value]="s.id">{{ s.nombre }}</option>
+  </select>
+
+  <label>Aforo máximo</label>
+  <input type="number" [(ngModel)]="model.aforoMax" min="1" />
+
+  <label>Descripción</label>
+  <textarea [(ngModel)]="model.descripcion"></textarea>
+
+  <label class="chk">
+    <input type="checkbox" [(ngModel)]="model.publicado" /> Publicar
+  </label>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="acciones">
+    <button (click)="guardar()">{{ id ? 'Actualizar' : 'Guardar' }}</button>
+    <button class="sec" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
